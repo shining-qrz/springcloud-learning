@@ -16,6 +16,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>springcloud-learning</name>
     <description>springcloud-learning</description>
+    <modules>
+        <module>services</module>
+    </modules>
     <packaging>pom</packaging>
 
     <properties>
