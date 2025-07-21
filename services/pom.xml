@@ -49,6 +49,12 @@
             <artifactId>model</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <!--loadbalancer 负载均衡-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
