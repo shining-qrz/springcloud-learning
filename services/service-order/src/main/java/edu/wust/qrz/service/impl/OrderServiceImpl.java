@@ -41,7 +41,6 @@ public class OrderServiceImpl implements OrderService {
         order.setNickName("nickName");
         order.setProductList(products);
 
-        //TODO 计算总金额
         BigDecimal totalAmount = product.getPrice().multiply(BigDecimal.valueOf(product.getNumber()));
         order.setTotalAmount(totalAmount);
 
