@@ -9,13 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>services</artifactId>
-
-    <packaging>pom</packaging>
-    <modules>
-        <module>service-product</module>
-        <module>service-order</module>
-    </modules>
+    <artifactId>model</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,30 +18,10 @@
     </properties>
 
     <dependencies>
-        <!--springcloud alibaba 注册中心-服务发现-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-
-        <!--Openfeign-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-        <!--lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>annotationProcessor</scope>
-        </dependency>
-
-        <!--model 实体类引入-->
-        <dependency>
-            <groupId>edu.wust.qrz</groupId>
-            <artifactId>model</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

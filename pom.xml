@@ -18,6 +18,7 @@
     <description>springcloud-learning</description>
     <modules>
         <module>services</module>
+        <module>model</module>
     </modules>
     <packaging>pom</packaging>
 
