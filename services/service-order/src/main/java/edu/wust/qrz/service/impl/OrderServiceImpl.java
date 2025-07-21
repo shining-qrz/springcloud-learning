@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order createOrder(Long productId, Long userId) {
-        Product product = getProductByRemoteWithLoadBalancer(productId);
+        Product product = getProductByRemoteWithLoadBalanced(productId);
         List<Product> products = new ArrayList<>();
         products.add(product);
 
@@ -49,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    //弃用
     private Product getProductByRemote(Long productId){
         //获取远程服务ip：port
         List<ServiceInstance> instances = discoveryClient.getInstances("service-product");
@@ -63,7 +64,8 @@ public class OrderServiceImpl implements OrderService {
         return restTemplate.getForObject(url, Product.class);
     }
 
-    private Product getProductByRemoteWithLoadBalancer(Long productId){
+    //弃用
+    private Product getProductByRemoteWithLoadBalancerClient(Long productId){
         //获取远程服务ip：port
         ServiceInstance instance = loadBalancerClient.choose("service-product");
         String host = instance.getHost();
@@ -73,6 +75,12 @@ public class OrderServiceImpl implements OrderService {
 
         log.info("远程请求：{}", url);
 
+        return restTemplate.getForObject(url, Product.class);
+    }
+
+    //基于注解的负载均衡远程调用
+    private Product getProductByRemoteWithLoadBalanced(Long productId){
+        String url = "http://service-product/services/product/" + productId;
         return restTemplate.getForObject(url, Product.class);
     }
 }
