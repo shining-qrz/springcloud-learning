@@ -1,0 +1,39 @@
+server:
+  port: 8000
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-order
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: SpringCloud-Learning-${spring.profiles.active}
+
+---
+spring:
+  config:
+    import:
+      - nacos:order.commom-properties?group=order
+      - nacos:order.database-properties?group=order
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    import:
+      - nacos:order.commom-properties?group=order
+      - nacos:order.database-properties?group=order
+    activate:
+      on-profile: prod
+
+---
+spring:
+  config:
+    import:
+      - nacos:order.commom-properties?group=order
+    activate:
+      on-profile: test

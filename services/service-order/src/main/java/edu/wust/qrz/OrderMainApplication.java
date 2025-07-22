@@ -21,31 +21,28 @@ public class OrderMainApplication {
     }
 
     @Bean
-    ApplicationRunner applicationRunner(NacosConfigManager nacosConfigManager){
-        return new ApplicationRunner() {
-            @Override
-            public void run(ApplicationArguments args) throws Exception {
-                System.out.println("=====================================================");
-                //获取nacos configService
-                ConfigService configService = nacosConfigManager.getConfigService();
-                //添加监听 addListener(String dataId, String group, Listener listener)
-                configService.addListener("service-order.properties", "DEFAULT_GROUP", new Listener() {
+    ApplicationRunner applicationRunner(NacosConfigManager nacosConfigManager) {
+        return args -> {
+            System.out.println("=====================================================");
+            //获取nacos configService
+            ConfigService configService = nacosConfigManager.getConfigService();
+            //添加监听 addListener(String dataId, String group, Listener listener)
+            configService.addListener("service-order.properties", "DEFAULT_GROUP", new Listener() {
 
-                    //执行器 -- 运行在线程池中
-                    @Override
-                    public Executor getExecutor() {
-                        return Executors.newFixedThreadPool(4);
-                    }
+                //执行器 -- 运行在线程池中
+                @Override
+                public Executor getExecutor() {
+                    return Executors.newFixedThreadPool(4);
+                }
 
-                    //配置信息接收
-                    @Override
-                    public void receiveConfigInfo(String s) {
-                        System.out.println("配置更新：");
-                        System.out.println(s);
-                        System.out.println("邮件发送...");
-                    }
-                });
-            }
+                //配置信息接收
+                @Override
+                public void receiveConfigInfo(String s) {
+                    System.out.println("配置更新：");
+                    System.out.println(s);
+                    System.out.println("邮件发送...");
+                }
+            });
         };
     }
 }
