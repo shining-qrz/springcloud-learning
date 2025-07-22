@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "order")
 @Data
 public class OrderProperties {
-
     String timeOut;
     String autoConfirm;
 }
