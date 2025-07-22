@@ -1,13 +1,15 @@
 package edu.wust.qrz.controller;
 
+import edu.wust.qrz.config.properties.OrderProperties;
 import edu.wust.qrz.entity.Order;
 import edu.wust.qrz.service.OrderService;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
-@RefreshScope //自动刷新配置属性
+//@RefreshScope //自动刷新配置属性
 @RestController
 @RequestMapping("/services/order")
 public class OrderController {
@@ -15,15 +17,18 @@ public class OrderController {
     @Resource
     OrderService orderService;
 
-    @Value("${order.timeout}")
-    String orderTimeout;
+    @Resource
+    OrderProperties orderProperties;
 
-    @Value("${order.auto-confirm}")
-    String orderAutoConfirm;
+//    @Value("${order.timeout}")
+//    String orderTimeout;
+//
+//    @Value("${order.auto-confirm}")
+//    String orderAutoConfirm;
 
     @GetMapping("/config")
     public String getConfig(){
-        return  "order-timeout: " + orderTimeout + "；order-auto-confirm: " + orderAutoConfirm;
+        return  "order-timeout: " + orderProperties.getTimeOut() + "；order-auto-confirm: " + orderProperties.getAutoConfirm();
     }
 
     @PostMapping("/create")
