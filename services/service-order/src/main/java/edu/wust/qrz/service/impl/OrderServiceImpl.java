@@ -2,9 +2,11 @@ package edu.wust.qrz.service.impl;
 
 import edu.wust.qrz.entity.Order;
 import edu.wust.qrz.entity.Product;
+import edu.wust.qrz.feign.ProductFeignClient;
 import edu.wust.qrz.service.OrderService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -28,9 +30,12 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     LoadBalancerClient loadBalancerClient;
 
+    @Resource
+    ProductFeignClient productFeignClient;
+
     @Override
     public Order createOrder(Long productId, Long userId) {
-        Product product = getProductByRemoteWithLoadBalanced(productId);
+        Product product = productFeignClient.getProductById(productId);
         List<Product> products = new ArrayList<>();
         products.add(product);
 
@@ -77,6 +82,7 @@ public class OrderServiceImpl implements OrderService {
         return restTemplate.getForObject(url, Product.class);
     }
 
+    //弃用
     //基于注解的负载均衡远程调用
     private Product getProductByRemoteWithLoadBalanced(Long productId){
         String url = "http://service-product/services/product/" + productId;

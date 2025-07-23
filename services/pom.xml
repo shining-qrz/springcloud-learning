@@ -24,13 +24,13 @@
     </properties>
 
     <dependencies>
-        <!--springcloud alibaba 注册中心-服务发现-->
+        <!--springcloud alibaba Nacos注册中心-服务发现-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
 
-        <!--springcloud alibaba 注册中心-配置管理-->
+        <!--springcloud alibaba Nacos注册中心-配置管理-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
