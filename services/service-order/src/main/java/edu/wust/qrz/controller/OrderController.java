@@ -4,9 +4,6 @@ import edu.wust.qrz.config.properties.OrderProperties;
 import edu.wust.qrz.entity.Order;
 import edu.wust.qrz.service.OrderService;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 //@RefreshScope //自动刷新配置属性
@@ -31,7 +28,7 @@ public class OrderController {
         return  "order-timeout: " + orderProperties.getTimeOut() + "；order-auto-confirm: " + orderProperties.getAutoConfirm();
     }
 
-    @PostMapping("/create")
+    @GetMapping("/create")
     public Order createOrder(@RequestParam("productId") Long productId, @RequestParam("userId") Long userId){
         return orderService.createOrder(productId, userId);
     }

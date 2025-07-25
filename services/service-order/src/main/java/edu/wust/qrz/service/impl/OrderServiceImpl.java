@@ -1,12 +1,12 @@
 package edu.wust.qrz.service.impl;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import edu.wust.qrz.entity.Order;
 import edu.wust.qrz.entity.Product;
 import edu.wust.qrz.feign.ProductFeignClient;
 import edu.wust.qrz.service.OrderService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     ProductFeignClient productFeignClient;
 
+    @SentinelResource(value = "createOrder")
     @Override
     public Order createOrder(Long productId, Long userId) {
         Product product = productFeignClient.getProductById(productId);

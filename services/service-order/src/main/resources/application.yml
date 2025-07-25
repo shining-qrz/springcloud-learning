@@ -4,7 +4,7 @@ server:
 spring:
   profiles:
     active: dev
-    include: feign
+    include: feign, sentinel
   application:
     name: service-order
   cloud:
