@@ -8,5 +8,9 @@ spring:
             read-timeout: 5000
           service-product:
             connect-timeout: 2000
-            read-timeout: 2000
+            read-timeout: 5000
+            request-interceptors:
+              - edu.wust.qrz.interceptor.XTokenInterceptor
+            # 配置重试机制
+#            retryer: feign.Retryer.Default
 
