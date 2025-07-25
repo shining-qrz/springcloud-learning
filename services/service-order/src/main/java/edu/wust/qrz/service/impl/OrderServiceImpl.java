@@ -1,12 +1,15 @@
 package edu.wust.qrz.service.impl;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import edu.wust.qrz.entity.Order;
 import edu.wust.qrz.entity.Product;
 import edu.wust.qrz.feign.ProductFeignClient;
+import edu.wust.qrz.handler.exception.SentinelBlockExceptionHandler;
 import edu.wust.qrz.service.OrderService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -33,7 +36,7 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     ProductFeignClient productFeignClient;
 
-    @SentinelResource(value = "createOrder")
+    @SentinelResource(value = "createOrder", blockHandler = "createOrderBlockHandler")
     @Override
     public Order createOrder(Long productId, Long userId) {
         Product product = productFeignClient.getProductById(productId);
@@ -52,6 +55,19 @@ public class OrderServiceImpl implements OrderService {
 
         return order;
 
+    }
+
+    public Order createOrderBlockHandler(Long productId, Long userId, BlockException e){
+        Order order = new Order();
+        order.setId(0L);
+        order.setUserid(userId);
+        order.setNickName("未知用户");
+        order.setAddress("未知地址");
+        order.setTotalAmount(BigDecimal.valueOf(0));
+        ArrayList<Product> products = new ArrayList<>();
+        order.setProductList(products);
+
+        return order;
     }
 
     //弃用
