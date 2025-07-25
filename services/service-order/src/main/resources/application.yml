@@ -13,6 +13,7 @@ spring:
         server-addr: 127.0.0.1:8848
         namespace: SpringCloud-Learning-${spring.profiles.active}
 
+
 logging:
   level:
     edu.wust.qrz.feign: debug
