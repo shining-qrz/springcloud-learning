@@ -28,7 +28,7 @@ public class OrderController {
         return  "order-timeout: " + orderProperties.getTimeOut() + "；order-auto-confirm: " + orderProperties.getAutoConfirm();
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     public Order createOrder(@RequestParam("productId") Long productId, @RequestParam("userId") Long userId){
         return orderService.createOrder(productId, userId);
     }

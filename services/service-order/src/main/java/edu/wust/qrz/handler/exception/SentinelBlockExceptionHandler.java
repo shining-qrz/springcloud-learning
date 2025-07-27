@@ -20,7 +20,7 @@ public class SentinelBlockExceptionHandler implements BlockExceptionHandler {
         httpServletResponse.setContentType("application/json;charset=utf-8");
         PrintWriter writer = httpServletResponse.getWriter();
         Result result = Result.fail(500, s + "，Sentinel异常：" + e.getClass());
-
+        httpServletResponse.setStatus(429);
         String resultJson = JSONUtil.toJsonPrettyStr(result);
 
         writer.write(resultJson);
