@@ -10,3 +10,13 @@ spring:
           uri: lb://service-product
           predicates:
             - Path=/api/services/product/**
+
+        - id: bing-route
+          uri: https://www.bing.com
+          predicates:
+            - Path=/search/**
+            - name: Query
+              args:
+                param: q
+                regexp: test
+            - Vip=user, qrz
