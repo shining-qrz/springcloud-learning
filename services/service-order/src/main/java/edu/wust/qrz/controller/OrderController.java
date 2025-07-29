@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 //@RefreshScope //自动刷新配置属性
 @RestController
-@RequestMapping("/services/order")
+@RequestMapping("/api/services/order")
 public class OrderController {
 
     @Resource

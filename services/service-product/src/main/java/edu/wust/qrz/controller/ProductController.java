@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/services/product")
+@RequestMapping("/api/services/product")
 public class ProductController {
 
     @Resource

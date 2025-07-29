@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(value = "service-product", fallback = ProductFeignClientFallBack.class )
 public interface ProductFeignClient {
 
-    @GetMapping("/services/product/{id}")
+    @GetMapping("/api/services/product/{id}")
     Product getProductById(@PathVariable("id") Long id);
 }
