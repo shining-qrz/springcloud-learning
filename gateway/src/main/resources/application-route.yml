@@ -8,6 +8,7 @@ spring:
             - Path=/api/services/order/**
           filters:
             - RewritePath=/api/services/?(?<segment>.*), /$\{segment}
+            - XResponseToken=X-Response-Token, uuid
 
         - id: product-route
           uri: lb://service-product
