@@ -1,8 +1,10 @@
 package edu.wust.qrz.service.impl;
 
 import edu.wust.qrz.bean.OrderTbl;
+import edu.wust.qrz.feign.AccountFeignClient;
 import edu.wust.qrz.mapper.OrderTblMapper;
 import edu.wust.qrz.service.OrderService;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,13 +15,17 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderTblMapper orderTblMapper;
 
+    @Resource
+    AccountFeignClient accountFeignClient;
+
     @Transactional
     @Override
     public OrderTbl create(String userId, String commodityCode, int orderCount) {
         //1、计算订单价格
         int orderMoney = calculate(commodityCode, orderCount);
 
-        //TODO 2、扣减账户余额
+        //2、扣减账户余额
+        accountFeignClient.debit(userId, orderMoney);
 
         //3、保存订单
         OrderTbl orderTbl = new OrderTbl();
