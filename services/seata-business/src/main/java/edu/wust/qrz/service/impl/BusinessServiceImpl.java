@@ -5,6 +5,7 @@ import edu.wust.qrz.feign.OrderFeignClient;
 import edu.wust.qrz.feign.StorageFeignClient;
 import edu.wust.qrz.service.BusinessService;
 import jakarta.annotation.Resource;
+import org.apache.seata.spring.annotation.GlobalTransactional;
 import org.springframework.stereotype.Service;
 
 
@@ -17,6 +18,7 @@ public class BusinessServiceImpl implements BusinessService {
     @Resource
     StorageFeignClient storageFeignClient;
 
+    @GlobalTransactional
     @Override
     public void purchase(String userId, String commodityCode, int orderCount) {
 

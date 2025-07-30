@@ -1,5 +1,7 @@
 package edu.wust.qrz.service;
 
+import org.apache.seata.spring.annotation.GlobalTransactional;
+
 public interface BusinessService {
 
     /**
