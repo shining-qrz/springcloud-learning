@@ -23,3 +23,32 @@ spring:
             - Path=/search/**
             - Query=q,test
             - Vip=user, qrz
+
+        - id: seata-account-route
+          uri: lb://seata-account
+          predicates:
+            - Path=/api/services/seata/account/**
+          filters:
+            - RewritePath=/api/services/seata/account/?(?<segment>.*), /$\{segment}
+
+
+        - id: seata-business-route
+          uri: lb://seata-business
+          predicates:
+            - Path=/api/services/seata/business/**
+          filters:
+            - RewritePath=/api/services/seata/business/?(?<segment>.*), /$\{segment}
+
+        - id: seata-order-route
+          uri: lb://seata-order
+          predicates:
+            - Path=/api/services/seata/order/**
+          filters:
+            - RewritePath=/api/services/seata/order/?(?<segment>.*), /$\{segment}
+
+        - id: seata-storage-route
+          uri: lb://seata-storage
+          predicates:
+            - Path=/api/services/seata/storage/**
+          filters:
+            - RewritePath=/api/services/seata/storage/?(?<segment>.*), /$\{segment}
